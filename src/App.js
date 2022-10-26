@@ -3,7 +3,6 @@ import "./App.css";
 import { Octokit } from "octokit";
 import { Button, Col, Row, Card, CardTitle, CardText } from "reactstrap";
 
-// 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
 function App() {
   let tokenInStore = localStorage.getItem("token");
   const [token, setToken] = useState(tokenInStore || "");
