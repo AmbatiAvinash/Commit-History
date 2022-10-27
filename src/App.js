@@ -49,6 +49,32 @@ function App() {
     }
   };
 
+  const formatDate = (d) => {
+    console.log(d);
+    let months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sept",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    if (d.length > 0) {
+      let date = new Date(d);
+      let fetchedDate = date.getDate();
+      let month = date.getMonth();
+      let year = date.getFullYear();
+      return `${fetchedDate}/${months[month]}/${year}`;
+    }
+    return "";
+  };
+
   return (
     <div className="App">
       <div className="title">
@@ -99,7 +125,7 @@ function App() {
                   <Card body>
                     <CardTitle tag="h5">{com?.commit.message}</CardTitle>
                     <CardText>
-                      <p>{com?.commit.author.date}</p>
+                      <p>{formatDate(com?.commit.author.date)}</p>
                       <p>{com?.commit.author.name}</p>
                     </CardText>
                   </Card>
