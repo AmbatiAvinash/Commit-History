@@ -7,12 +7,19 @@ import { toast } from "react-toastify";
 function App() {
   let tokenInStore = localStorage.getItem("token");
   const [token, setToken] = useState(tokenInStore || "");
+  const [username, setUsername] = useState("");
+  const [repo, setRepo] = useState("");
   const [commits, setCommits] = useState([]);
 
-  const handleTokenChange = (e) => {
+  const handleFormChange = (e) => {
     let val = e.target.value;
-    setToken(val);
-    localStorage.setItem("token", val);
+    if (e.target?.name === "token") {
+      setToken(val);
+    } else if (e.target?.name === "username") {
+      setUsername(val);
+    } else if (e.target?.name === "repo") {
+      setRepo(val);
+    }
   };
 
   const fetchCommits = async () => {
@@ -22,35 +29,61 @@ function App() {
 
     try {
       let commitsData = await octokit.request(
-        "GET /repos/AmbatiAvinash/commit-history/commits",
+        `GET /repos/${username}/${repo}/commits`,
         {
-          owner: "AmbatiAvinash",
-          repo: "commit-history",
+          owner: username,
+          repo: repo,
         }
       );
       if (commitsData.status === 200) {
-        toast.success("Success");
+        toast.success("Successfully fetched the commits");
+        localStorage.setItem("token", token);
+        localStorage.setItem("username", username);
+        localStorage.setItem("repo", repo);
         setCommits(commitsData.data);
       } else {
-        console.log("error");
+        toast.error("Something went wrong");
       }
     } catch (e) {
-      console.log(e);
+      toast.error("Something went wrong");
     }
   };
 
   return (
     <div className="App">
       <div className="title">
-        <h5>
+        <h6>
           Please enter the token here:{" "}
-          <input type="text" value={token} onChange={handleTokenChange} />
-        </h5>
-        <p>User name: </p>
-        <p>Repo name: </p>
+          <input
+            type="text"
+            name="token"
+            value={token}
+            onChange={handleFormChange}
+          />
+        </h6>
+        <p>
+          User name:{" "}
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={handleFormChange}
+          />
+        </p>
+        <p>
+          Repo name:{" "}
+          <input
+            type="text"
+            name="repo"
+            value={repo}
+            onChange={handleFormChange}
+          />
+        </p>
         <Button
           color="primary"
-          disabled={token?.length === 0}
+          disabled={
+            token?.length === 0 || username.length === 0 || repo.length === 0
+          }
           onClick={fetchCommits}
           className="fetchBtn"
         >

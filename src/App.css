@@ -12,11 +12,19 @@
 }
 
 .commits {
+  border: 1px solid gray;
   margin-top: 20px;
+  max-height: 68vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .commit {
   padding-block: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
