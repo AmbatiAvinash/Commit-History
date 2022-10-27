@@ -23,7 +23,7 @@
 
 .commit {
   padding-block: 10px;
-  width: 48%;
+  min-width: 55%;
   display: flex;
   justify-content: space-evenly;
   flex-grow: 1;

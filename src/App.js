@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Octokit } from "octokit";
 import { Button, Col, Row, Card, CardTitle, CardText } from "reactstrap";
@@ -6,10 +6,27 @@ import { toast } from "react-toastify";
 
 function App() {
   let tokenInStore = localStorage.getItem("token");
+  let userInStore = localStorage.getItem("username");
+  let repoInStore = localStorage.getItem("repo");
   const [token, setToken] = useState(tokenInStore || "");
-  const [username, setUsername] = useState("");
-  const [repo, setRepo] = useState("");
+  const [username, setUsername] = useState(userInStore || "");
+  const [repo, setRepo] = useState(repoInStore || "");
   const [commits, setCommits] = useState([]);
+  const [countdown, setCountDown] = useState(30);
+
+  useEffect(() => {
+    if (commits.length > 0) {
+      const interval = setInterval(() => {
+        setCountDown(countdown - 1);
+        if (countdown === 1) {
+          setCountDown(30);
+          fetchCommits();
+        }
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [countdown, commits]);
 
   const handleFormChange = (e) => {
     let val = e.target.value;
@@ -105,6 +122,7 @@ function App() {
             onChange={handleFormChange}
           />
         </p>
+        <div>Countdown: {countdown}</div>
         <Button
           color="primary"
           disabled={
