@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/commit-history/static/css/main.11646830.css",
+    "main.js": "/commit-history/static/js/main.d64027de.js",
+    "static/js/787.71219d3c.chunk.js": "/commit-history/static/js/787.71219d3c.chunk.js",
+    "index.html": "/commit-history/index.html",
+    "main.11646830.css.map": "/commit-history/static/css/main.11646830.css.map",
+    "main.d64027de.js.map": "/commit-history/static/js/main.d64027de.js.map",
+    "787.71219d3c.chunk.js.map": "/commit-history/static/js/787.71219d3c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.11646830.css",
+    "static/js/main.d64027de.js"
+  ]
+}
