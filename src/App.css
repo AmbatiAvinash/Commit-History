@@ -3,10 +3,10 @@
   margin: 0;
   box-sizing: border-box;
 }
-
+/* 
 .title {
   display: flex;
-}
+} */
 .fetchBtn {
   margin-left: 30px;
 }

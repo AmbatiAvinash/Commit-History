@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import "./App.css";
 import { Octokit } from "octokit";
 import { Button, Col, Row, Card, CardTitle, CardText } from "reactstrap";
+import { toast } from "react-toastify";
 
 function App() {
   let tokenInStore = localStorage.getItem("token");
   const [token, setToken] = useState(tokenInStore || "");
   const [commits, setCommits] = useState([]);
-  console.log(commits);
 
   const handleTokenChange = (e) => {
     let val = e.target.value;
@@ -29,6 +29,7 @@ function App() {
         }
       );
       if (commitsData.status === 200) {
+        toast.success("Success");
         setCommits(commitsData.data);
       } else {
         console.log("error");
@@ -41,10 +42,12 @@ function App() {
   return (
     <div className="App">
       <div className="title">
-        <h3>
+        <h5>
           Please enter the token here:{" "}
           <input type="text" value={token} onChange={handleTokenChange} />
-        </h3>
+        </h5>
+        <p>User name: </p>
+        <p>Repo name: </p>
         <Button
           color="primary"
           disabled={token?.length === 0}
